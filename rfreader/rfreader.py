@@ -31,4 +31,4 @@ class RfReaderManager(Observable):
 
 
 
-RfReaderManager().startRfLoop()
+
