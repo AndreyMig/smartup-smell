@@ -2,7 +2,7 @@ import urllib.request
 
 SERVER_HOST = "127.0.0.1"
 
-def ServerComm():
+class ServerComm():
 
 
     def sendRfId(rfid):

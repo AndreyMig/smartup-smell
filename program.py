@@ -29,7 +29,7 @@ def startSeq():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=4000, debug=True)
+    #app.run(host='0.0.0.0', port=4000, debug=True)
 
     #init logger
     logger = LoggerWrapper()
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     manager = Manager()
     rfreader = RfReaderManager()
     rfreader.register(manager)
-
+    rfreader.startRfLoop()
 
 
 

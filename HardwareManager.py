@@ -6,12 +6,13 @@ import threading
 
 class HardwareManager():
 
-    AIR_PUMP_PIN = 17
-    LED_1_PIN = 17
-    LED_2_PIN = 17
-    FAN_PIN = 17
+    AIR_PUMP_PIN = 40
+    LED_1_PIN = 40
+    LED_2_PIN = 40
+    FAN_PIN = 40
 
     def __init__(self):
+        GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
         self.logger = LoggerWrapper()
 
