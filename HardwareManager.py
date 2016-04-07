@@ -59,7 +59,7 @@ class HardwareManager():
     def startAirPump(self):
         self.logger.info("startAirPump()")
         GPIO.setup(HardwareManager.AIR_PUMP_PIN, GPIO.OUT)
-		GPIO.output(HardwareManager.AIR_PUMP_PIN, GPIO.HIGH)
+        GPIO.output(HardwareManager.AIR_PUMP_PIN, GPIO.HIGH)
 
 
     def stopAirPump(self):
