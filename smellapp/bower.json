@@ -1,0 +1,23 @@
+{
+  "name": "smellapp",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Andery <migalovich@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.1",
+    "jquery-ui": "jqueryui#^1.11.4",
+    "jqueryui-touch-punch": "*"
+  }
+}

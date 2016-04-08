@@ -1,0 +1,16 @@
+.idea/
+dist
+node_modules
+dist/
+.tmp
+.sass-cache
+bower_components
+.DS_Store
+
+#local dev configuration file
+**/devs/**
+
+#compiled from angular2
+/webApp2/js
+
+

@@ -1,0 +1,224 @@
+<%- include ./header.ejs %>
+
+<body>
+
+
+<div class="container"  style="margin-top: 30px">
+
+    <div class="col-xs-8">
+
+        <div class="matchRow row">
+            <section class="col-xs-offset-3 col-xs-4 number">
+                1
+            </section>
+
+            <section class="col-xs-4 dropZone ">
+
+            </section>
+        </div>
+        <div class="matchRow row">
+            <section class="col-xs-offset-3 col-xs-4 number">
+                2
+            </section>
+
+            <section class="col-xs-4 dropZone">
+
+            </section>
+        </div>
+
+        <div class="matchRow row">
+            <section class="col-xs-offset-3 col-xs-4 number">
+                3
+            </section>
+
+            <section class="col-xs-4 dropZone">
+
+            </section>
+        </div>
+
+
+        <div class="matchRow row">
+            <section class="col-xs-offset-3 col-xs-4 number">
+
+                4
+            </section>
+
+            <section class="col-xs-4 dropZone">
+
+            </section>
+        </div>
+
+
+        <div class="matchRow row">
+            <section class="col-xs-offset-3 col-xs-4 number">
+
+                5
+            </section>
+
+            <section class="col-xs-4 dropZone">
+
+            </section>
+        </div>
+
+
+        <div class="matchRow row">
+            <section class="col-xs-offset-3 col-xs-4 number">
+
+                6
+            </section>
+
+            <section class="col-xs-4 dropZone">
+
+            </section>
+        </div>
+
+
+        <div class="matchRow row">
+            <section class="col-xs-offset-3 col-xs-4 number">
+
+                7
+            </section>
+
+            <section class="col-xs-4 dropZone">
+
+            </section>
+        </div>
+
+        <div class="matchRow row">
+            <section class="col-xs-offset-3 col-xs-4 number">
+
+                8
+            </section>
+
+            <section class="col-xs-4 dropZone">
+
+            </section>
+        </div>
+
+        <div class="matchRow row">
+            <section class="col-xs-offset-3 col-xs-4 number">
+
+                9
+            </section>
+
+            <section class="col-xs-4 dropZone">
+
+            </section>
+        </div>
+        <div class="matchRow row">
+            <section class="col-xs-offset-3 col-xs-4 number">
+
+                10
+            </section>
+
+            <section class="col-xs-4 dropZone">
+
+            </section>
+        </div>
+
+
+    </div>
+
+
+    <!---Smells-->
+    <div class="col-xs-4">
+        <% for(var i=1; i <= 5; i++) { %>
+        <div class="row">
+            <section class="col-xs-4 draggable"><img class="smellImage" src=<%=p[i]['img']%> alt="Banana" /></section>
+            <section class="col-xs-offset-2 col-xs-4 draggable"><img class="smellImage"src=<%=p[i*2]['img']%> alt="Banana" /></section>
+        </div>
+        <% } %>
+
+    </div>
+
+
+</div>
+
+<script>
+
+    $( ".draggable" ).draggable({ revert: 'invalid'});
+
+    $( ".dropZone" ).droppable({
+        accept: ".draggable",
+        activeClass: "activeDrop",
+        tolerance: "intersect",
+        hoverClass:  "hover",
+        drop: function( event, ui ) {
+
+            $(ui.draggable).draggable('disable');
+            $(this).droppable('disable');
+            $(this).addClass('stop');
+
+
+            $.post('/')
+
+
+            //TODO UPDATE DATABASE
+        }
+    });
+
+</script>
+
+<style>
+
+    .smellImage{
+        height: 50px
+    }
+
+    .dropZone{
+        border: solid 1px #dcdcdc;
+        height: 100%;
+    }
+
+    .stop{
+        background-color: #27ae60;
+
+    }
+
+    .hover{
+        background-color: #27ae60;
+        -webkit-transition: background-color 200ms linear;
+        -moz-transition: background-color 200ms linear;
+        -o-transition: background-color 200ms linear;
+        -ms-transition: background-color 200ms linear;
+        transition: background-color 200ms linear;
+    }
+
+    .activeDrop{
+        animation:myfirst 2s infinite;
+        -moz-animation:myfirst 2s infinite; /* Firefox */
+        -webkit-animation:myfirst 2s infinite; /* Safari and Chrome */
+    }
+
+    .number{
+        font-size: 2.5em;
+    }
+
+    .draggable{
+
+    }
+
+    .matchRow{
+        height: 40px;
+        margin-bottom: 10px;
+    }
+
+    @-moz-keyframes myfirst /* Firefox */
+    {
+        0%   {background: #dcdcdc;}
+        50%  {background: #3498db;}
+        100%   {background: #dcdcdc;}
+    }
+
+    @-webkit-keyframes myfirst /* Safari and Chrome */
+    {
+        0%   {background: #dcdcdc;}
+        50%  {background: #3498db;}
+        100%   {background: #dcdcdc;}
+    }
+
+
+</style>
+
+</body>
+</html>
