@@ -1,13 +1,16 @@
 import urllib.request
 
-SERVER_HOST = "127.0.0.1"
-
+SERVER_HOST = "172.20.21.160"
+SERVER_PORT = 3000
 class ServerComm():
 
 
     def sendRfId(rfid):
-        response = urllib.request.urlopen("http://" + SERVER_HOST + "/rf?rfid="+rfid)
+        url = "http://" + SERVER_HOST +":" + str(SERVER_PORT) + "/rf?rfid="+rfid
+        print("sending request to " + url)
+        response = urllib.request.urlopen(url)
         json = response.read()
+        print('res from server' + str(json))
         return json
 
 

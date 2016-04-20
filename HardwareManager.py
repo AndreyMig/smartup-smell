@@ -6,10 +6,10 @@ import threading
 
 class HardwareManager():
 
-    AIR_PUMP_PIN = 40
-    LED_1_PIN = 40
-    LED_2_PIN = 40
-    FAN_PIN = 40
+    AIR_PUMP_PIN = 38 #green relay coord
+    LED_1_PIN = 12
+    LED_2_PIN = 16
+    FAN_PIN = 40 #grey relay coord
 
     def __init__(self):
         GPIO.setwarnings(False)
