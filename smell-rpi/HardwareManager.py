@@ -3,6 +3,7 @@ from migutils.LoggerWrapper import LoggerWrapper
 import RPi.GPIO as GPIO
 import time
 import threading
+from LedManager import LedManager
 
 class HardwareManager():
 
