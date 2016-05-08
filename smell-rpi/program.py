@@ -1,5 +1,6 @@
 from flask import Flask, request
 from HardwareManager import HardwareManager
+from LedManager import LedManager
 from rfreader.rfreader import RfReaderManager
 from manager import Manager
 from migutils.LoggerWrapper import LoggerWrapper
@@ -41,10 +42,10 @@ if __name__ == '__main__':
     logger = LoggerWrapper()
     logger.add_handler()
 
-    t = threading.Thread(target=initRfLoop)
-    t.start()
-
-    app.run(host='0.0.0.0', port=4000, debug=True)
+    #t = threading.Thread(target=initRfLoop)
+    #t.start()
+    LedManager.colortrail()
+    #app.run(host='0.0.0.0', port=4000, debug=True)
 
 
 

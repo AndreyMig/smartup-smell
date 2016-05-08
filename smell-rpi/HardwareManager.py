@@ -33,8 +33,8 @@ class HardwareManager():
         time.sleep(4)
         self.stopAirPump()
         self.startLed1()
-        time.sleep(1)
-        self.stopLed1()
+        #time.sleep(1)
+        #self.stopLed1()
 
 
 
@@ -49,9 +49,10 @@ class HardwareManager():
         self.logger.info("thread started for: startSim2()")
         self.startFan()
 
-        self.startLed2()
-        time.sleep(1)
-        self.stopLed2()
+		#TODO change to led2
+        self.startLed1()
+        #time.sleep(1)
+        #self.stopLed2()
 
         time.sleep(1)
 
@@ -72,18 +73,20 @@ class HardwareManager():
 
     def startLed1(self):
         self.logger.info("startLed1()")
-        GPIO.setup(HardwareManager.LED_1_PIN, GPIO.OUT)
-        GPIO.output(HardwareManager.LED_1_PIN, GPIO.HIGH)
+        LedManager.colortrail();
+        #GPIO.setup(HardwareManager.LED_1_PIN, GPIO.OUT)
+        #GPIO.output(HardwareManager.LED_1_PIN, GPIO.HIGH)
 
-    def stopLed1(self):
-        self.logger.info("stopLed1()")
-        GPIO.setup(HardwareManager.LED_1_PIN, GPIO.OUT)
-        GPIO.output(HardwareManager.LED_1_PIN, GPIO.LOW)
+   # def stopLed1(self):
+     #   self.logger.info("stopLed1()")
+    #    GPIO.setup(HardwareManager.LED_1_PIN, GPIO.OUT)
+     #   GPIO.output(HardwareManager.LED_1_PIN, GPIO.LOW)
 
     def startLed2(self):
         self.logger.info("startLed2()")
-        GPIO.setup(HardwareManager.LED_2_PIN, GPIO.OUT)
-        GPIO.output(HardwareManager.LED_2_PIN, GPIO.HIGH)
+        LedManager.colortrail2();
+#        GPIO.setup(HardwareManager.LED_2_PIN, GPIO.OUT)
+ #       GPIO.output(HardwareManager.LED_2_PIN, GPIO.HIGH)
 
     def stopLed2(self):
         self.logger.info("stopLed2()")
