@@ -11,7 +11,7 @@ class Manager(Observer):
 
 
     def update(self, *args, **kwargs):
-        print("American stock market received: {0}\n{1}".format(args, kwargs))
+        print("Params from rf: {0}\n{1}".format(args, kwargs))
         rfid = args[0]
         self.logger.info('rf recievied: ' + rfid)
         self.hardwareManager.startSimSequence2()
@@ -22,5 +22,7 @@ class Manager(Observer):
 
     def sendRfAndProcessResponse(self, rfid):
         json = ServerComm.sendRfId(rfid)
+        output = json['output_id']
+        self.hardwareManager.startOutputSequence(output)
 
 

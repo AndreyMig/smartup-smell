@@ -99,45 +99,58 @@ var ballMap = {
 var smells = {
 
     1: {
-
         smell_name: "banana1",
+        output_id: 5,
+
         img: "/public/images/banana.png"
     },
     2: {
         smell_name: "banana2",
+        output_id: 5,
+
         img: "/public/images/banana.png"
     },
     3: {
         smell_name: "banana3",
+        output_id: 5,
+
         img: "/public/images/banana.png"
     },
 
     4: {
         smell_name: "banana4",
+        output_id: 5,
+
         img: "/public/images/banana.png"
     },
     5: {
         smell_name: "banana5",
+        output_id: 5,
         img: "/public/images/banana.png"
     },
     6: {
         smell_name: "banana6",
+        output_id: 5,
         img: "/public/images/banana.png"
     },
     7: {
         smell_name: "banana7",
+        output_id: 5,
         img: "/public/images/banana.png"
     },
     8: {
         smell_name: "banana8",
+        output_id: 5,
         img: "/public/images/banana.png"
     },
     9: {
         smell_name: "banana9",
+        output_id: 9,
         img: "/public/images/banana.png"
     },
     10: {
         smell_name: "banana10",
+        output_id: 10,
         img: "/public/images/banana.png"
     }
 };
@@ -147,7 +160,16 @@ var smells = {
 router.get('/', function (req, res, next) {
 
 
-    res.render('index', {p: smells});
+    //_.forEach(ballMap, function(b) {
+    //
+    //    var smellid = b['smell_id'];
+    //    if (smellid != -1) {
+    //        smells[smellid]['ball_id'] = ;
+    //    }
+    //
+    //});
+
+    res.render('index', {p: smells, ball_map: ballMap});
 
 
 });
@@ -196,8 +218,7 @@ router.get('/rf', function (req, res, next) {
     console.log(smells[smellid]);
 
     res.json(smells[smellid]);
-//    ballMap[ballId]['smell_id'] = -1;
-
+    ballMap[ballId]['smell_id'] = -1;
 
     console.log('done');
 

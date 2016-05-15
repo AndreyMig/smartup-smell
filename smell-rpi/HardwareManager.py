@@ -12,6 +12,11 @@ class HardwareManager():
     LED_2_PIN = 16
     FAN_PIN = 40 #grey relay coord
 
+    OUTPUT_DIR_PIN = 333
+
+    BIN_PINS = [111, 2222, 3333, 444] # msb left to right
+
+
     def __init__(self):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
@@ -24,8 +29,52 @@ class HardwareManager():
         t = threading.Thread(target=self.startSim1)
         t.start()
 
+    def startOutputSequence(self, output_id):
+        self.logger.info("startOutputSequence()")
+        #t = threading.Thread(target=self.startOutputSeq)
+        #t.start()
+        self.output(output_id)
 
 
+    def output(self, id):
+        self.logger.info("output()")
+
+        #reset all binary pins
+        self.outputBinaryPins(1111, GPIO.LOW)
+
+
+        binary = "{0:b}".format(int(id))
+
+
+        #set dir to 0
+
+        self.outputBinaryPins(binary, GPIO.HIGH)
+        self.setOutputDir(GPIO.LOW)
+        time.sleep(0.5)
+        self.setOutputDir(GPIO.HIGH)
+        time.sleep(0.5)
+        self.setOutputDir(GPIO.LOW)
+        self.outputBinaryPins(1111, GPIO.LOW)
+
+
+
+
+    def outputBinaryPins(self, binarynum, dir):
+        self.logger.info("outputBinaryPins()")
+        for idx, bit in enumerate(binarynum):
+            self.logger.info(str(bit))
+            if bit == 1:
+                GPIO.setup(HardwareManager.BIN_PINS[idx], GPIO.OUT)
+                GPIO.output(HardwareManager.AIR_PUMP_PIN, dir)
+
+    def setOutputDir(self, dir):
+        self.logger.info("setOutputDir()")
+        GPIO.setup(HardwareManager.AIR_PUMP_PIN, GPIO.OUT)
+        GPIO.output(HardwareManager.AIR_PUMP_PIN, dir)
+
+
+    #def startOutputSeq(self):
+     #   self.outPut
 
     def startSim1(self):
         self.logger.info("thread started for: startSim1()")
