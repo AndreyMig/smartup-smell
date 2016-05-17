@@ -26,10 +26,11 @@ class Manager(Observer):
 
 
     def sendRfAndProcessResponse(self, rfid):
-        json = ServerComm.sendRfId(rfid)
-        print('ddddd')
-        print(str(json))
-#        output = json['output_id']
- #       self.hardwareManager.startOutputSequence(output)
+        json_data = ServerComm.sendRfId(rfid) 
+        if json_data['status'] > -1:     
+            output = json_data['smell_data']['output_id']
+            self.hardwareManager.startOutputSequence(output)
+        else:
+            print("SERVER DID NOT RECOGNIZE RFID: " + str(rfid))
 
 

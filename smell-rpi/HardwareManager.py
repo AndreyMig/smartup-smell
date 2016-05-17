@@ -44,7 +44,7 @@ class HardwareManager():
 
 
         binary = "{0:b}".format(int(id))
-
+        self.logger.info(str(id) + " in binary: " + str(binary))
 
         #set dir to 0
 
@@ -61,7 +61,7 @@ class HardwareManager():
 
     def outputBinaryPins(self, binarynum, dir):
         self.logger.info("outputBinaryPins()")
-        for idx, bit in enumerate(binarynum):
+        for idx, bit in enumerate([binarynum]):
             self.logger.info(str(bit))
             if bit == 1:
                 GPIO.setup(HardwareManager.BIN_PINS[idx], GPIO.OUT)
