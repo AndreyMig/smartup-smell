@@ -2,6 +2,7 @@ from HardwareManager import HardwareManager
 from observer import Observer
 from server_comm import ServerComm
 from migutils.LoggerWrapper import LoggerWrapper
+import time
 
 class Manager(Observer):
 
@@ -11,18 +12,23 @@ class Manager(Observer):
 
 
     def update(self, *args, **kwargs):
-        print("Params from rf: {0}\n{1}".format(args, kwargs))
+        #print("Params from rf: {0}".format(args))
         rfid = args[0]
         self.logger.info('rf recievied: ' + rfid)
-        self.hardwareManager.startSimSequence2()
         self.sendRfAndProcessResponse(rfid)
+        time.sleep(0.5)
+        self.hardwareManager.startSimSequence2()
+        time.sleep(0.5)
+        
 
 
 
 
     def sendRfAndProcessResponse(self, rfid):
         json = ServerComm.sendRfId(rfid)
-        output = json['output_id']
-        self.hardwareManager.startOutputSequence(output)
+        print('ddddd')
+        print(str(json))
+#        output = json['output_id']
+ #       self.hardwareManager.startOutputSequence(output)
 
 

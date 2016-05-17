@@ -1,6 +1,6 @@
 import urllib.request
 
-SERVER_HOST = "172.20.18.178"
+SERVER_HOST = "192.168.43.165"
 SERVER_PORT = 3000
 class ServerComm():
 

@@ -18,22 +18,25 @@ class RfReaderManager(Observable):
 
         while True:
             self.logger.info('waiting for rf tag')
-			#self.resetReader()
+            #self.resetReader()
             d1 = ser.read(11)
             data = str(binascii.hexlify(d1))[2:24] 
             print(data)
             self.update_observers(data)
-
+            
         ser.close()
-#     def resetReader(self):
-#		print('reseting reader')
-#		RESET_PIN = 23
-#		GPIO.setmode(GPIO.BOARD)
-#		GPIO.setup(RESET_PIN, GPIO.OUT)
-#		GPIO.output(RESET_PIN, GPIO.LOW)	
-#		GPIO.output(RESET_PIN, GPIO.HIGH)
-#		time.sleep(1)
-#		print('READER WAS RESET')
+
+
+
+    def resetReader(self):
+        print('reseting reader')
+        RESET_PIN = 23
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(RESET_PIN, GPIO.OUT)
+        GPIO.output(RESET_PIN, GPIO.LOW)	
+        time.sleep(1)
+        GPIO.output(RESET_PIN, GPIO.HIGH)
+        print('READER WAS RESET')
 
 
 
