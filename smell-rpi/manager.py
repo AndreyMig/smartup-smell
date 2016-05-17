@@ -3,6 +3,7 @@ from observer import Observer
 from server_comm import ServerComm
 from migutils.LoggerWrapper import LoggerWrapper
 import time
+import json
 
 class Manager(Observer):
 
