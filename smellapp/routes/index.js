@@ -196,7 +196,7 @@ router.post('/updateSmell/:id/:smell', function (req, res, next) {
 router.get('/rf', function (req, res, next) {
 
 
-    console.log(req.query.rfid);
+   // console.log(req.query.rfid);
 
     var rfid = req.query.rfid;
 
@@ -208,11 +208,11 @@ router.get('/rf', function (req, res, next) {
 
 
     var ballId = matchingMapIdToNum[realRfId]['ball_id'];
-    console.log('ballId = ', ballId);
+  //  console.log('ballId = ', ballId);
 
     var smellid = ballMap[ballId]['smell_id'];
 
-    console.log('smellid = ', smellid);
+    //console.log('smellid = ', smellid);
 
     //reset smell match for ball
     console.log(smells[smellid]);
@@ -220,7 +220,7 @@ router.get('/rf', function (req, res, next) {
     res.json(smells[smellid]);
     ballMap[ballId]['smell_id'] = -1;
 
-    console.log('done');
+    //console.log('done');
 
 
 });
@@ -232,7 +232,7 @@ var matchIdAprox = function (rfid) {
 
     _.forIn(matchingMapIdToNum, function (v, k) {
 
-        console.log("key = ", k);
+        //console.log("key = ", k);
 
         var matchCounter = 0;
         for (var i = 0; i < rfid.length; i++) {
@@ -243,7 +243,7 @@ var matchIdAprox = function (rfid) {
             //console.log(matchCounter);
             //matched
             if (matchCounter >= 16) {
-                console.log(matchCounter);
+                //console.log(matchCounter);
                 key = k;
                 break;
             }
