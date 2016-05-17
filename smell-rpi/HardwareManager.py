@@ -11,16 +11,24 @@ class HardwareManager():
     LED_1_PIN = 12
     LED_2_PIN = 16
     FAN_PIN = 40 #grey relay coord
+	
+    OUTPUT_DIR_PIN = 29
 
-    OUTPUT_DIR_PIN = 333
-
-    BIN_PINS = [111, 2222, 3333, 444] # msb left to right
+    BIN_PINS = [31, 33, 35, 37] # msb left to right
 
 
     def __init__(self):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
         self.logger = LoggerWrapper()
+
+		#reset all GPIO functions
+        self.stopFan()
+        self.stopAirPump()
+        self.outputBinaryPins([0, 0, 0, 0])
+        self.setOutputDir(GPIO.LOW)
+        time.sleep(0.5)
+        self.outputBinaryPins([0, 0, 0, 0])
 
     #Happens at the very beginning of the simulation
     #User input needed to start this
@@ -40,37 +48,45 @@ class HardwareManager():
         self.logger.info("output()")
 
         #reset all binary pins
-        self.outputBinaryPins(1111, GPIO.LOW)
+        self.setOutputDir(GPIO.LOW)
+        self.outputBinaryPins([0, 0, 0, 0])
 
 
-        binary = "{0:b}".format(int(id))
-        self.logger.info(str(id) + " in binary: " + str(binary))
+        binary = "{0:010b}".format(int(id))
+        binarylist = list(binary)[6:]
+        self.logger.info(str(id) + " in binary: " + str(binarylist))
 
         #set dir to 0
 
-        self.outputBinaryPins(binary, GPIO.HIGH)
+        self.outputBinaryPins(binarylist)
         self.setOutputDir(GPIO.LOW)
-        time.sleep(0.5)
+        time.sleep(1)
         self.setOutputDir(GPIO.HIGH)
-        time.sleep(0.5)
+        time.sleep(2)
         self.setOutputDir(GPIO.LOW)
-        self.outputBinaryPins(1111, GPIO.LOW)
+        time.sleep(1)
+        self.outputBinaryPins([0, 0, 0, 0])
 
 
 
 
-    def outputBinaryPins(self, binarynum, dir):
+    def outputBinaryPins(self, binarynum):
         self.logger.info("outputBinaryPins()")
-        for idx, bit in enumerate([binarynum]):
-            self.logger.info(str(bit))
+        for idx, bit in enumerate(binarynum):
+            bit = int(bit)
+            self.logger.info(str(idx) +' bit is '+str(bit))
+            GPIO.setup(HardwareManager.BIN_PINS[idx], GPIO.OUT)
             if bit == 1:
-                GPIO.setup(HardwareManager.BIN_PINS[idx], GPIO.OUT)
-                GPIO.output(HardwareManager.AIR_PUMP_PIN, dir)
+                print(str(HardwareManager.BIN_PINS[idx]) + "  high")
+                GPIO.output(HardwareManager.BIN_PINS[idx], GPIO.HIGH)
+            elif bit == 0:
+                print(str(HardwareManager.BIN_PINS[idx]) + "   low")
+                GPIO.output(HardwareManager.BIN_PINS[idx], GPIO.LOW)
 
     def setOutputDir(self, dir):
         self.logger.info("setOutputDir()")
-        GPIO.setup(HardwareManager.AIR_PUMP_PIN, GPIO.OUT)
-        GPIO.output(HardwareManager.AIR_PUMP_PIN, dir)
+        GPIO.setup(HardwareManager.OUTPUT_DIR_PIN, GPIO.OUT)
+        GPIO.output(HardwareManager.OUTPUT_DIR_PIN, dir)
 
 
     #def startOutputSeq(self):
@@ -99,7 +115,7 @@ class HardwareManager():
         self.startFan()
 
 		#TODO change to led2
-        self.startLed1()
+        #self.startLed1()
         #time.sleep(1)
         #self.stopLed2()
 

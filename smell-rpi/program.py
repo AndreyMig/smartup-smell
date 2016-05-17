@@ -42,10 +42,11 @@ if __name__ == '__main__':
     logger = LoggerWrapper()
     logger.add_handler()
     initRfLoop()
-    #t = threading.Thread(target=initRfLoop)
-    #t.start()
+
+    t = threading.Thread(target=initRfLoop)
+    t.start()
     #LedManager.colortrail()
-#    app.run(host='0.0.0.0', port=4000, debug=True)
+    app.run(host='0.0.0.0', port=4000, debug=True)
 
 
 

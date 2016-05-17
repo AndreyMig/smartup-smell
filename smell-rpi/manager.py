@@ -17,9 +17,9 @@ class Manager(Observer):
         rfid = args[0]
         self.logger.info('rf recievied: ' + rfid)
         self.sendRfAndProcessResponse(rfid)
-        time.sleep(0.5)
+        time.sleep(1)
         self.hardwareManager.startSimSequence2()
-        time.sleep(0.5)
+        time.sleep(1)
         
 
 
@@ -27,10 +27,12 @@ class Manager(Observer):
 
     def sendRfAndProcessResponse(self, rfid):
         json_data = ServerComm.sendRfId(rfid) 
-        if json_data['status'] > -1:     
+        if json_data['status'] >= 0:     
             output = json_data['smell_data']['output_id']
             self.hardwareManager.startOutputSequence(output)
-        else:
+        elif json_data['status'] == -1:
             print("SERVER DID NOT RECOGNIZE RFID: " + str(rfid))
+        elif  json_data['status'] == -2:
+            print("no smell was matched to that ball: " + str(rfid))
 
 
