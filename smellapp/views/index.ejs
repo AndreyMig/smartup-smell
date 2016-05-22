@@ -26,134 +26,25 @@
         </div>
 
         <% } %>
-        <!--<div class="matchRow row" data-id="1">-->
-        <!--<section class="col-xs-offset-3 col-xs-4 number">-->
-        <!--1-->
-        <!--</section>-->
-
-        <!--<section class="col-xs-4 dropZone ">-->
-
-        <!--</section>-->
-        <!--</div>-->
-        <!--<div class="matchRow row" data-id="2">-->
-        <!--<section class="col-xs-offset-3 col-xs-4 number">-->
-        <!--2-->
-        <!--</section>-->
-
-        <!--<section class="col-xs-4 dropZone">-->
-
-        <!--</section>-->
-        <!--</div>-->
-
-        <!--<div class="matchRow row" data-id="3">-->
-        <!--<section class="col-xs-offset-3 col-xs-4 number">-->
-        <!--3-->
-        <!--</section>-->
-
-        <!--<section class="col-xs-4 dropZone">-->
-
-        <!--</section>-->
-        <!--</div>-->
-
-
-        <!--<div class="matchRow row" data-id="4">-->
-        <!--<section class="col-xs-offset-3 col-xs-4 number">-->
-
-        <!--4-->
-        <!--</section>-->
-
-        <!--<section class="col-xs-4 dropZone">-->
-
-        <!--</section>-->
-        <!--</div>-->
-
-
-        <!--<div class="matchRow row" data-id="5">-->
-        <!--<section class="col-xs-offset-3 col-xs-4 number">-->
-
-        <!--5-->
-        <!--</section>-->
-
-        <!--<section class="col-xs-4 dropZone">-->
-
-        <!--</section>-->
-        <!--</div>-->
-
-
-        <!--<div class="matchRow row" data-id="6">-->
-        <!--<section class="col-xs-offset-3 col-xs-4 number">-->
-
-        <!--6-->
-        <!--</section>-->
-
-        <!--<section class="col-xs-4 dropZone">-->
-
-        <!--</section>-->
-        <!--</div>-->
-
-
-        <!--<div class="matchRow row" data-id="7">-->
-        <!--<section class="col-xs-offset-3 col-xs-4 number">-->
-
-        <!--7-->
-        <!--</section>-->
-
-        <!--<section class="col-xs-4 dropZone">-->
-
-        <!--</section>-->
-        <!--</div>-->
-
-        <!--<div class="matchRow row" data-id="8">-->
-        <!--<section class="col-xs-offset-3 col-xs-4 number">-->
-
-        <!--8-->
-        <!--</section>-->
-
-        <!--<section class="col-xs-4 dropZone">-->
-
-        <!--</section>-->
-        <!--</div>-->
-
-        <!--<div class="matchRow row" data-id="9">-->
-        <!--<section class="col-xs-offset-3 col-xs-4 number">-->
-
-        <!--9-->
-        <!--</section>-->
-
-        <!--<section class="col-xs-4 dropZone">-->
-
-        <!--</section>-->
-        <!--</div>-->
-        <!--<div class="matchRow row" data-id="10">-->
-        <!--<section class="col-xs-offset-3 col-xs-4 number ">-->
-
-        <!--10-->
-        <!--</section>-->
-
-        <!--<section class="col-xs-4 dropZone hover">-->
-
-        <!--</section>-->
-        <!--</div>-->
-
 
     </div>
 
 
     <!---Smells-->
     <div class="col-xs-4">
-        <% for(var i = 1; i <= 5; i++) { %>
+        <% for(var i = 1; i <= 9; i += 2) { %>
         <div class="row">
             <section data-id="<%= i %>" class="col-xs-4 draggable">
                 <% if(ball_map[i]['smell_id'] == -1) { %>
-                <img class="smellImage" src=<%= p[i]['img'] %> alt="Banana"/>
+                <img class="smellImage" src=<%= p[i]['img'] %> />
                 <% } else { %>
-                <!--<img class="smellImage" src=<%= p[i]['img'] %> alt="Banana"/>-->
+
                 <% } %>
             </section>
-            <section data-id="<%= i * 2 %>" class="col-xs-offset-2 col-xs-4 draggable">
+            <section data-id="<%= i+1 %>" class="col-xs-offset-2 col-xs-4 draggable">
 
-                <% if(ball_map[i*2]['smell_id'] == -1) { %>
-                    <img class="smellImage" src=<%= p[i*2]['img'] %> alt="Banana"/>
+                <% if(ball_map[i+1]['smell_id'] == -1) { %>
+                    <img class="smellImage" src=<%= p[i+1]['img'] %> />
                 <% } else { %>
 
                 <% } %>
@@ -240,7 +131,7 @@
     }
 
     .draggable {
-        min-height: 20px;
+        min-height: 60px;
     }
 
     .matchRow {

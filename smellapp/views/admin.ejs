@@ -1,0 +1,99 @@
+<%- include ./header.ejs %>
+
+<body>
+
+
+<div class="container" style="margin-top: 30px">
+
+    <button id="adminbutton">GO</button>
+
+</div>
+
+
+<script>
+
+    $("#adminbutton").click(function(){
+        $.post('/setflag', function (data) {
+            console.log(data);
+        });
+    });
+
+
+
+</script>
+
+<style>
+
+    .smellImage {
+        height: 50px
+    }
+
+    .dropZone {
+        border: solid 1px #dcdcdc;
+        height: 100%;
+    }
+
+    .stop {
+        background-color: #27ae60;
+
+    }
+
+    .hover {
+        background-color: #27ae60;
+        -webkit-transition: background-color 200ms linear;
+        -moz-transition: background-color 200ms linear;
+        -o-transition: background-color 200ms linear;
+        -ms-transition: background-color 200ms linear;
+        transition: background-color 200ms linear;
+    }
+
+    .activeDrop {
+        animation: myfirst 2s infinite;
+        -moz-animation: myfirst 2s infinite; /* Firefox */
+        -webkit-animation: myfirst 2s infinite; /* Safari and Chrome */
+    }
+
+    .number {
+        font-size: 2.5em;
+    }
+
+    .draggable {
+        min-height: 20px;
+    }
+
+    .matchRow {
+        height: 40px;
+        margin-bottom: 10px;
+    }
+
+    @-moz-keyframes myfirst /* Firefox */
+    {
+        0% {
+            background: #dcdcdc;
+        }
+        50% {
+            background: #3498db;
+        }
+        100% {
+            background: #dcdcdc;
+        }
+    }
+
+    @-webkit-keyframes myfirst /* Safari and Chrome */
+    {
+        0% {
+            background: #dcdcdc;
+        }
+        50% {
+            background: #3498db;
+        }
+        100% {
+            background: #dcdcdc;
+        }
+    }
+
+
+</style>
+
+</body>
+</html>

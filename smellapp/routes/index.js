@@ -96,65 +96,73 @@ var ballMap = {
 };
 
 
+var flag = 0;
+var numOfMatchedBalls = 0;
 var smells = {
 
     1: {
-        smell_name: "banana1",
-        output_id: 5,
-
+        smell_name: "banana",
+        output_id: 1,
         img: "/public/images/banana.png"
     },
     2: {
-        smell_name: "banana2",
-        output_id: 5,
+        smell_name: "strawberry",
+        output_id: 2,
 
-        img: "/public/images/banana.png"
+        img: "/public/images/strawberry.png"
     },
     3: {
-        smell_name: "banana3",
-        output_id: 5,
+        smell_name: "apple",
+        output_id: 3,
 
-        img: "/public/images/banana.png"
+        img: "/public/images/apple.png"
     },
 
     4: {
-        smell_name: "banana4",
-        output_id: 5,
+        smell_name: "bazookajoe",
+        output_id: 4,
 
-        img: "/public/images/banana.png"
+        img: "/public/images/bazookajoe.jpg"
     },
     5: {
-        smell_name: "banana5",
+        smell_name: "chocoalte",
         output_id: 5,
-        img: "/public/images/banana.png"
+        img: "/public/images/chocoalte.jpeg"
     },
     6: {
-        smell_name: "banana6",
-        output_id: 5,
-        img: "/public/images/banana.png"
+        smell_name: "grapes",
+        output_id: 6,
+        img: "/public/images/grapes.png"
     },
     7: {
-        smell_name: "banana7",
-        output_id: 5,
-        img: "/public/images/banana.png"
+        smell_name: "strawberry",
+        output_id: 7,
+        img: "/public/images/pineapple.jpeg"
     },
     8: {
-        smell_name: "banana8",
-        output_id: 5,
-        img: "/public/images/banana.png"
+        smell_name: "passionfruit",
+        output_id: 8,
+        img: "/public/images/passionfruit.jpg"
     },
     9: {
-        smell_name: "banana9",
+        smell_name: "cola",
         output_id: 9,
-        img: "/public/images/banana.png"
+        img: "/public/images/cola.png"
     },
     10: {
-        smell_name: "banana10",
+        smell_name: "watermelon",
         output_id: 10,
-        img: "/public/images/banana.png"
+        img: "/public/images/watermelon.jpeg"
     }
 };
 
+/* GET home page. */
+router.get('/admin', function (req, res, next) {
+
+    res.render('admin', {p: smells, ball_map: ballMap});
+
+
+});
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -184,7 +192,8 @@ router.post('/updateSmell/:id/:smell', function (req, res, next) {
 
     ballMap[ballid]['smell_id'] = smellid;
 
-
+    numOfMatchedBalls++;
+    console.log(numOfMatchedBalls);
     res.sendStatus(200);
 
     //smellMap
@@ -192,7 +201,24 @@ router.post('/updateSmell/:id/:smell', function (req, res, next) {
 
 });
 
+router.post('/setflag', function (req, res, next) {
+    flag = 1;
+    res.sendStatus(200);
 
+});
+
+router.get('/startcheck', function (req, res, next) {
+
+
+
+    if ( flag == 1 ) {
+        flag = 0;
+        res.json({status: 0, start: 1});
+    }
+    else
+        res.json({status: 0, start: 0});
+
+});
 router.get('/rf', function (req, res, next) {
 
 
@@ -204,7 +230,7 @@ router.get('/rf', function (req, res, next) {
     //console.log('realRfId = ', realRfId);
 
     if (realRfId == -1)
-        return res.sendStatus(200);
+        return res.json({status: -1});
 
 
     var ballId = matchingMapIdToNum[realRfId]['ball_id'];
@@ -212,14 +238,18 @@ router.get('/rf', function (req, res, next) {
 
     var smellid = ballMap[ballId]['smell_id'];
 
-    //console.log('smellid = ', smellid);
+    console.log('smellid = ', smellid);
 
     //reset smell match for ball
     console.log(smells[smellid]);
 
-    res.json(smells[smellid]);
-    ballMap[ballId]['smell_id'] = -1;
+    if (smells[smellid] == undefined)
+        return res.json({status: -2});
 
+
+    res.json({status: 0, smell_data: smells[smellid]});
+    ballMap[ballId]['smell_id'] = -1;
+    numOfMatchedBalls = 0;
     //console.log('done');
 
 
@@ -242,7 +272,7 @@ var matchIdAprox = function (rfid) {
 
             //console.log(matchCounter);
             //matched
-            if (matchCounter >= 16) {
+            if (matchCounter >= 13) {
                 //console.log(matchCounter);
                 key = k;
                 break;
@@ -256,5 +286,16 @@ var matchIdAprox = function (rfid) {
     });
     return key ? key : -1;
 };
+
+
+// var resetBalls = function() {
+//   numOfMatchedBalls = 0;
+//   _.forEach(ballMap, function(b){
+//
+//       b['smell_id'] = -1;
+//
+//   });
+// };
+
 
 module.exports = router;
