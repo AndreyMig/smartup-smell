@@ -95,7 +95,7 @@ class HardwareManager():
     def startSim1(self):
         self.logger.info("thread started for: startSim1()")
         self.startAirPump()
-        time.sleep(4)
+        time.sleep(1)
         self.stopAirPump()
         self.startLed1()
         #time.sleep(1)

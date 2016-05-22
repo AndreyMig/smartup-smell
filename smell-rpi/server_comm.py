@@ -18,6 +18,17 @@ class ServerComm():
         print('res from server' + str(data))
         return data
 
+    def startCheck():
+        url = "http://" + SERVER_HOST +":" + str(SERVER_PORT) + "/startcheck"
+        print("sending request to " + url)
+        response = urllib.request.urlopen(url)
+        encoding = response.info().get_content_charset('utf8')
+        data = json.loads(response.read().decode(encoding))
+        #res = response.read().decode('utf-8')
+        #obj = json.load(res)
+        print('res from server' + str(data))
+        return data
+
 
 
 
