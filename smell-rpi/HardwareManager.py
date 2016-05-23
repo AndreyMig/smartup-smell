@@ -8,8 +8,8 @@ from LedManager import LedManager
 class HardwareManager():
 
     AIR_PUMP_PIN = 38 #green relay coord
-    LED_1_PIN = 12
-    LED_2_PIN = 16
+    LED_1_PIN = 32
+    LED_2_PIN = 36
     FAN_PIN = 40 #grey relay coord
 	
     OUTPUT_DIR_PIN = 29
@@ -98,8 +98,8 @@ class HardwareManager():
         time.sleep(1)
         self.stopAirPump()
         self.startLed1()
-        #time.sleep(1)
-        #self.stopLed1()
+        time.sleep(1)
+        self.stopLed1()
 
 
 
@@ -113,14 +113,9 @@ class HardwareManager():
     def startSim2(self):
         self.logger.info("thread started for: startSim2()")
         self.startFan()
-
-		#TODO change to led2
-        #self.startLed1()
-        #time.sleep(1)
-        #self.stopLed2()
-
-        time.sleep(1)
-
+        self.startLed1()
+        time.sleep(2)
+        self.stopLed2()
         self.stopFan()
 
 
@@ -137,21 +132,22 @@ class HardwareManager():
 
 
     def startLed1(self):
-        self.logger.info("startLed1()")
-        LedManager.colortrail();
-        #GPIO.setup(HardwareManager.LED_1_PIN, GPIO.OUT)
-        #GPIO.output(HardwareManager.LED_1_PIN, GPIO.HIGH)
+        # self.logger.info("startLed1()")
+        # LedManager.colortrail();
+        GPIO.setup(HardwareManager.LED_1_PIN, GPIO.OUT)
+        GPIO.output(HardwareManager.LED_1_PIN, GPIO.HIGH)
 
-   # def stopLed1(self):
-     #   self.logger.info("stopLed1()")
-    #    GPIO.setup(HardwareManager.LED_1_PIN, GPIO.OUT)
-     #   GPIO.output(HardwareManager.LED_1_PIN, GPIO.LOW)
+
+   def stopLed1(self):
+       self.logger.info("stopLed1()")
+       GPIO.setup(HardwareManager.LED_1_PIN, GPIO.OUT)
+       GPIO.output(HardwareManager.LED_1_PIN, GPIO.LOW)
 
     def startLed2(self):
-        self.logger.info("startLed2()")
-        LedManager.colortrail2();
-#        GPIO.setup(HardwareManager.LED_2_PIN, GPIO.OUT)
- #       GPIO.output(HardwareManager.LED_2_PIN, GPIO.HIGH)
+        # self.logger.info("startLed2()")
+        # LedManager.colortrail2();
+       GPIO.setup(HardwareManager.LED_2_PIN, GPIO.OUT)
+       GPIO.output(HardwareManager.LED_2_PIN, GPIO.HIGH)
 
     def stopLed2(self):
         self.logger.info("stopLed2()")
