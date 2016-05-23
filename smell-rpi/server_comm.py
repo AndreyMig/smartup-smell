@@ -2,8 +2,8 @@ import urllib.request
 import codecs
 import json
 import sys
-SERVER_HOST = "172.20.18.109" if len(sys.argv) <= 1 else sys.argv[1]
-SERVER_PORT = 3000
+SERVER_HOST = "smellapp.tk" if len(sys.argv) <= 1 else sys.argv[1]
+SERVER_PORT = 80
 class ServerComm():
 
 
