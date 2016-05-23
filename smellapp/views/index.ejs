@@ -20,7 +20,8 @@
             </section>
             <% } else { %>
             <section class="col-xs-4 dropZone hover">
-                <img class="smellImage" src=<%= p[j]['img'] %> alt="Banana"/>
+                <img class="smellImage" src=<%= p[ball_map[j]['smell_id']]['img'] %> alt="Banana"/>
+                <!--<%= p[j]['img'] %>-->
             </section>
             <% } %>
         </div>
@@ -35,7 +36,7 @@
         <% for(var i = 1; i <= 9; i += 2) { %>
         <div class="row">
             <section data-id="<%= i %>" class="col-xs-4 draggable">
-                <% if(ball_map[i]['smell_id'] == -1) { %>
+                <% if(p[i]['is_set'] == -1) { %>
                 <img class="smellImage" src=<%= p[i]['img'] %> />
                 <% } else { %>
 
@@ -43,7 +44,7 @@
             </section>
             <section data-id="<%= i+1 %>" class="col-xs-offset-2 col-xs-4 draggable">
 
-                <% if(ball_map[i+1]['smell_id'] == -1) { %>
+                <% if(p[i+1]['is_set'] == -1) { %>
                     <img class="smellImage" src=<%= p[i+1]['img'] %> />
                 <% } else { %>
 
@@ -83,6 +84,10 @@
 //            var smellParent = $(ui.draggable).parent();
             var smellId = $(ui.draggable).attr('data-id');
 
+
+
+            console.log('ball  = ' + ballId);
+            console.log('smellId  = ' + smellId);
 
             $.post('/updateSmell/' + ballId + '/' + smellId, function (data) {
                 console.log(data);

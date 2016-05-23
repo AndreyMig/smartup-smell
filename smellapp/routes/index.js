@@ -103,56 +103,67 @@ var smells = {
     1: {
         smell_name: "banana",
         output_id: 1,
-        img: "/public/images/banana.png"
+        img: "/public/images/banana.png",
+        is_set: -1
+
     },
     2: {
         smell_name: "strawberry",
         output_id: 2,
 
-        img: "/public/images/strawberry.png"
+        img: "/public/images/strawberry.png",
+        is_set: -1
     },
     3: {
         smell_name: "apple",
         output_id: 3,
 
-        img: "/public/images/apple.png"
+        img: "/public/images/apple.png",
+        is_set: -1
     },
 
     4: {
         smell_name: "bazookajoe",
         output_id: 4,
 
-        img: "/public/images/bazookajoe.jpg"
+        img: "/public/images/bazookajoe.jpg",
+        is_set: -1
     },
     5: {
         smell_name: "chocoalte",
         output_id: 5,
-        img: "/public/images/chocoalte.jpeg"
+        img: "/public/images/chocoalte.jpeg",
+        is_set: -1
     },
     6: {
         smell_name: "grapes",
         output_id: 6,
-        img: "/public/images/grapes.png"
+        img: "/public/images/grapes.png",
+        is_set: -1
     },
     7: {
         smell_name: "strawberry",
         output_id: 7,
-        img: "/public/images/pineapple.jpeg"
+        img: "/public/images/pineapple.jpeg",
+        is_set: -1
     },
     8: {
         smell_name: "passionfruit",
         output_id: 8,
-        img: "/public/images/passionfruit.jpg"
+        img: "/public/images/passionfruit.jpg",
+        is_set: -1
     },
     9: {
         smell_name: "cola",
         output_id: 9,
-        img: "/public/images/cola.png"
+        img: "/public/images/cola.png",
+        is_set: -1
     },
     10: {
         smell_name: "watermelon",
         output_id: 10,
-        img: "/public/images/watermelon.jpeg"
+        img: "/public/images/watermelon.jpeg",
+        is_set: -1
     }
 };
 
@@ -168,14 +179,8 @@ router.get('/admin', function (req, res, next) {
 router.get('/', function (req, res, next) {
 
 
-    //_.forEach(ballMap, function(b) {
-    //
-    //    var smellid = b['smell_id'];
-    //    if (smellid != -1) {
-    //        smells[smellid]['ball_id'] = ;
-    //    }
-    //
-    //});
+    console.log(smells);
+    console.log(ballMap);
 
     res.render('index', {p: smells, ball_map: ballMap});
 
@@ -191,7 +196,7 @@ router.post('/updateSmell/:id/:smell', function (req, res, next) {
     console.log(ballid, smellid);
 
     ballMap[ballid]['smell_id'] = smellid;
-
+    smells[smellid]['is_set'] = 1;
     numOfMatchedBalls++;
     console.log(numOfMatchedBalls);
     res.sendStatus(200);
@@ -207,12 +212,64 @@ router.post('/setflag', function (req, res, next) {
 
 });
 
+var getRandomInt = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
 router.get('/startcheck', function (req, res, next) {
 
 
-
-    if ( flag == 1 ) {
+    if (flag == 1) {
         flag = 0;
+
+        var unasignedBalls = _.filter(ballMap, function (ball) {
+            return ball['smell_id'] == -1;
+        });
+        console.log(unasignedBalls.length);
+
+        var assignedBalls = _.filter(ballMap, function (ball) {
+            return ball['smell_id'] != -1;
+        });
+
+        var assignedsmells = _.map(assignedBalls, 'smell_id');
+
+        // assignedsmells = _.map(assignedBalls, parseInt);
+        assignedsmells = _.sortBy(assignedsmells, function (o) {
+            return o;
+        });
+
+        for(var j = 0; j < assignedsmells.length; j++) {
+            assignedsmells[j] = parseInt( assignedsmells[j]);
+        }
+
+        console.log(assignedsmells);
+
+        var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        var leftNumbers = [];
+
+        for(var i = 0; i < numbers.length; i++) {
+            // console.log(assignedsmells.indexOf(1));
+            if (assignedsmells.indexOf(numbers[i]) < 0) {
+                leftNumbers.push(numbers[i]);
+            }
+        }
+
+        leftNumbers = _.shuffle(leftNumbers);
+
+
+        _.forEach(unasignedBalls, function(ball, index){
+
+            ball['smell_id'] = leftNumbers[index];
+
+            smells[leftNumbers[index]]['is_set'] = 1;
+        });
+
+
+
+        console.log(ballMap);
+
+
         res.json({status: 0, start: 1});
     }
     else
@@ -222,7 +279,7 @@ router.get('/startcheck', function (req, res, next) {
 router.get('/rf', function (req, res, next) {
 
 
-   // console.log(req.query.rfid);
+    // console.log(req.query.rfid);
 
     var rfid = req.query.rfid;
 
@@ -234,20 +291,21 @@ router.get('/rf', function (req, res, next) {
 
 
     var ballId = matchingMapIdToNum[realRfId]['ball_id'];
-  //  console.log('ballId = ', ballId);
+    //  console.log('ballId = ', ballId);
 
     var smellid = ballMap[ballId]['smell_id'];
 
     console.log('smellid = ', smellid);
 
     //reset smell match for ball
-    console.log(smells[smellid]);
+    // console.log(smells[smellid]);
 
     if (smells[smellid] == undefined)
         return res.json({status: -2});
 
 
     res.json({status: 0, smell_data: smells[smellid]});
+    smells[smellid]['is_set'] = -1;
     ballMap[ballId]['smell_id'] = -1;
     numOfMatchedBalls = 0;
     //console.log('done');
