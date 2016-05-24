@@ -146,7 +146,7 @@ class HardwareManager():
 
 
     def startLed1(self):
-        # self.logger.info("startLed1()")
+        self.logger.info("startLed1()")
         # LedManager.colortrail();
         GPIO.setup(HardwareManager.LED_1_PIN, GPIO.OUT)
         GPIO.output(HardwareManager.LED_1_PIN, GPIO.HIGH)
@@ -158,7 +158,7 @@ class HardwareManager():
        GPIO.output(HardwareManager.LED_1_PIN, GPIO.LOW)
 
     def startLed2(self):
-        # self.logger.info("startLed2()")
+       self.logger.info("startLed2()")
         # LedManager.colortrail2();
        GPIO.setup(HardwareManager.LED_2_PIN, GPIO.OUT)
        GPIO.output(HardwareManager.LED_2_PIN, GPIO.HIGH)
