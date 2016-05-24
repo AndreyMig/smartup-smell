@@ -7,6 +7,9 @@
 
     <button id="adminbutton">GO</button>
 
+    <button id="adminbutton2">RESET</button>
+
+
 </div>
 
 
@@ -18,6 +21,12 @@
         });
     });
 
+
+    $("#adminbutton2").click(function(){
+        $.post('/reset_balls', function (data) {
+            console.log(data);
+        });
+    });
 
 
 </script>

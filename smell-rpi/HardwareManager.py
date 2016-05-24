@@ -21,6 +21,7 @@ class HardwareManager():
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
         self.logger = LoggerWrapper()
+        self.flag = 0
 
 		#reset all GPIO functions
         self.stopFan()
@@ -95,17 +96,29 @@ class HardwareManager():
     def startSim1(self):
         self.logger.info("thread started for: startSim1()")
         self.startAirPump()
-        time.sleep(1)
+        time.sleep(3)
         self.stopAirPump()
+        time.sleep(0.5)
         self.startLed1()
         time.sleep(1)
         self.stopLed1()
+        t = threading.Thread(target=self.takpiz())
+        t.start()
 
 
+    def takpiz(self):
+        while self.flag == 0:
+            self.startAirPump()
+            time.sleep(0.2)
+            self.stopAirPump()
+            time.sleep(0.2)
+        self.stopAirPump()
 
     #called after rfid from ball is identified
     def startSimSequence2(self):
         self.logger.info("startSimSequence2()")
+        self.flag = 1
+        time.sleep(0.5)
         t = threading.Thread(target=self.startSim2)
         t.start()
 
@@ -117,6 +130,7 @@ class HardwareManager():
         time.sleep(2)
         self.stopLed2()
         self.stopFan()
+
 
 
     def startAirPump(self):
@@ -138,7 +152,7 @@ class HardwareManager():
         GPIO.output(HardwareManager.LED_1_PIN, GPIO.HIGH)
 
 
-   def stopLed1(self):
+    def stopLed1(self):
        self.logger.info("stopLed1()")
        GPIO.setup(HardwareManager.LED_1_PIN, GPIO.OUT)
        GPIO.output(HardwareManager.LED_1_PIN, GPIO.LOW)

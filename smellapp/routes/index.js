@@ -187,6 +187,28 @@ router.get('/', function (req, res, next) {
 
 });
 
+
+router.post('/reset_balls', function (req, res, next) {
+
+
+    _.forEach(smells, function(smell){
+
+        smell['is_set'] = -1;
+
+    });
+
+
+
+    _.forEach(ballMap, function(ball){
+
+        ball['smell_id'] = -1;
+
+    });
+
+    res.sendStatus(200);
+});
+
+
 router.post('/updateSmell/:id/:smell', function (req, res, next) {
 
 
